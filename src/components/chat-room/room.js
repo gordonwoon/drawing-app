@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { FormControl, Card } from 'react-bootstrap';
 import io from 'socket.io-client';
+
+import Display from './display';
 
 const socket = io('http://localhost:5000');
 
 const Room = () => {
   const [value, setValue] = useState('');
-  const [messages, setMessages] = useState(['test', 'test2'])
+  const [messages, setMessages] = useState([])
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('e', e);
+    socket.send(value);
+    setMessages(messages.concat(value));
+    setValue('');
   }
   useEffect(() => {
     socket.on('connect', () => {
@@ -18,14 +23,13 @@ const Room = () => {
       setMessages(messages.concat(msg))
     })
   }, [messages])
-  console.log('messages', messages);
   return (
-    <div>
+    <Card className="chat-room" border="secondary">
+      <Display messages={messages} />
       <form onSubmit={handleSubmit}>
-        <input value={value} onChange={e => setValue(e.target.value)} />
+        <FormControl value={value} onChange={e => setValue(e.target.value)} />
       </form>
-      {messages.map((msg, i) => <p key={i}>{msg}</p>)}
-    </div>
+    </Card>
   )
 }
 

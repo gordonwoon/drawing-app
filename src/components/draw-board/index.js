@@ -1,5 +1,6 @@
-import React, { Component, createRef } from 'react'
-import PixiBoard from './pixi-board'
+import React, { Component, createRef } from 'react';
+import { Card } from 'react-bootstrap';
+import PixiBoard from './pixi-board';
 
 export default class DrawBoard extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export default class DrawBoard extends Component {
   }
   render() {
     return (
-      <div ref={this.ref} />
+      <Card ref={this.ref} className="draw-canvas" border="secondary" />
     )
   }
 }

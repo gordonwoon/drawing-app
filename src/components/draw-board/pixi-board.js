@@ -4,7 +4,7 @@ export default class PixiBoard {
   constructor(props) {
     /* PIXI.js */
     // create an new instance of a pixi stage
-    this.app = new PIXI.Application({ width: 1000, height: 800, antialias: true, backgroundColor: 0xffffff });
+    this.app = new PIXI.Application({ width: props.ref.clientWidth, height: props.ref.clientHeight, antialias: true, backgroundColor: 0xffffff });
     this.stage = this.app.stage;
 
     // add the renderer view element to the DOM

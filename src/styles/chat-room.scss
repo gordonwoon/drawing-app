@@ -1,0 +1,14 @@
+.chat-room {
+  background-color: white;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chat-display {
+  padding: 5px;
+}
+
+.chat-message {
+  display: block;
+}

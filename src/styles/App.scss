@@ -1,0 +1,11 @@
+@import './variables.scss';
+@import './utilities.scss';
+@import './chat-room.scss';
+@import './draw-board.scss';
+
+.app {
+  padding: $base;
+  width: 100vw;
+  height: 100vh;
+}
+
