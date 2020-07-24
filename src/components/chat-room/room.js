@@ -12,7 +12,6 @@ const Room = () => {
   const handleSubmit = e => {
     e.preventDefault();
     socket.send(value);
-    setMessages(messages.concat(value));
     setValue('');
   }
   useEffect(() => {
