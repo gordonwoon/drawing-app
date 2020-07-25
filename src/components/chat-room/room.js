@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { FormControl, Card } from 'react-bootstrap';
-import io from 'socket.io-client';
 
+import { withSocketConsumer } from '../../context/socket-context';
 import Display from './display';
 
-const socket = io('http://localhost:5000');
-
-const Room = () => {
+const Room = ({ socket }) => {
   const [value, setValue] = useState('');
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState([]);
   const handleSubmit = e => {
     e.preventDefault();
     socket.send(value);
+    setMessages([].concat(messages, value));
     setValue('');
-  }
+  };
   useEffect(() => {
-    socket.on('connect', () => {
-      socket.send('User has connected!');
-    })
     socket.on('message', msg => {
-      setMessages(messages.concat(msg))
-    })
-  }, [messages])
+      setMessages(messages.concat(msg));
+    });
+  }, [messages, socket]);
   return (
     <Card className="chat-room" border="secondary">
       <Display messages={messages} />
@@ -29,7 +25,7 @@ const Room = () => {
         <FormControl value={value} onChange={e => setValue(e.target.value)} />
       </form>
     </Card>
-  )
-}
+  );
+};
 
-export default Room;
+export default withSocketConsumer(Room);

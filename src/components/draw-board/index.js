@@ -1,8 +1,9 @@
 import React, { Component, createRef } from 'react';
 import { Card } from 'react-bootstrap';
 import PixiBoard from './pixi-board';
+import { withSocketConsumer } from '../../context/socket-context';
 
-export default class DrawBoard extends Component {
+export class DrawBoard extends Component {
   constructor(props) {
     super(props);
     this.ref = createRef();
@@ -14,8 +15,8 @@ export default class DrawBoard extends Component {
     });
   }
   render() {
-    return (
-      <Card ref={this.ref} className="draw-canvas" border="secondary" />
-    )
+    return <Card ref={this.ref} className="draw-canvas" border="secondary" />;
   }
 }
+
+export default withSocketConsumer(DrawBoard);

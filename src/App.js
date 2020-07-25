@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
+import { withSocketProvider } from './context/socket-context';
 import DrawBoard from './components/draw-board';
 import Room from './components/chat-room/room';
 import './styles/App.scss';
@@ -20,4 +21,4 @@ function App() {
   );
 }
 
-export default App;
+export default withSocketProvider(App);
