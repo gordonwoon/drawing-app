@@ -1,11 +1,11 @@
-import React, { createContext, useEffect, useRef } from 'react';
+import React, { createContext, useEffect } from 'react';
 import io from 'socket.io-client';
 
 export const SocketContext = createContext();
 
+const socket = io('http://localhost:5000');
+
 export const withSocketProvider = WrappedComponent => props => {
-  const socket = useRef(io('http://localhost:5000')).current;
-  console.log('socket', socket);
   useEffect(() => {
     socket.on('connect', () => {
       console.log('connected to socket');

@@ -14,6 +14,7 @@ const Room = ({ socket }) => {
     setValue('');
   };
   useEffect(() => {
+    console.log(socket.rooms);
     socket.on('message', msg => {
       setMessages(messages.concat(msg));
     });
