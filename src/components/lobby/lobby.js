@@ -17,7 +17,7 @@ export const Lobby = ({ socket }) => {
   return (
     <div>
       <input value={name} onChange={e => setName(e.target.value)} />
-      {players.forEach((player, i) => <p key={i}>{player}</p>)}
+      {players.map((player, i) => <p key={i}>{player}</p>)}
     </div>
   )
 }
