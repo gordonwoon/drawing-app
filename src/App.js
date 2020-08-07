@@ -20,7 +20,7 @@ function App() {
       <Container className="app" fluid>
         <Switch>
           <Route path="/lobby" component={Lobby} />
-          <Route path="/room" component={Room} />
+          <Route path="/room/:id" component={Room} />
           <Redirect from="/" exact to="/lobby" />
         </Switch>
       </Container>

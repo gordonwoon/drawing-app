@@ -15,8 +15,7 @@ export const CardChat = () => {
   };
 
   useEffect(() => {
-    subscribeToEvent('chat', (err, msg) => {
-      if (err) return;
+    subscribeToEvent('chat', msg => {
       setMessages(oldMsg => [].concat(oldMsg, msg));
     });
 
@@ -36,11 +35,18 @@ export const CardChat = () => {
 export default CardChat;
 
 export const Chat = ({ messages }) => {
+  const renderMsg = message => {
+    if (message.hasOwnProperty('sender')) {
+      return `${message.sender}: ${message.message}`;
+    } else {
+      return message;
+    }
+  }
   return (
     <div className="chat-display scroller">
-      {messages.map((msg, i) => (
-        <div key={i} className="chat-message">
-          {`${msg.sender}: ${msg.message}`}
+      {messages.map((message, index) => (
+        <div key={index} className="chat-message">
+          {renderMsg(message)}
         </div>
       ))}
       <div className="anchor" />

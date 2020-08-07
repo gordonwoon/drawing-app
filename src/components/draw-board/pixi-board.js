@@ -35,8 +35,7 @@ export default class PixiBoard {
     this.previousG = null;
   };
   initListener = () => {
-    subscribeToEvent('draw-event', (err, data) => {
-      if (err) return;
+    subscribeToEvent('draw-event', data => {
       this.ppts = data.ppts;
       this.onPaint();
       this.ppts = [];
