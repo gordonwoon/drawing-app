@@ -1,5 +1,7 @@
 import * as PIXI from 'pixi.js';
 
+import { sendEvent, subscribeToEvent } from 'utilities/socket';
+
 export default class PixiBoard {
   constructor(props) {
     /* PIXI.js */
@@ -12,7 +14,6 @@ export default class PixiBoard {
     });
     this.stage = this.app.stage;
     this.interaction = this.app.renderer.plugins.interaction;
-    this.socket = props.socket;
 
     // add the renderer view element to the DOM
     props.ref.appendChild(this.app.view);
@@ -34,12 +35,13 @@ export default class PixiBoard {
     this.previousG = null;
   };
   initListener = () => {
-    this.socket.on('draw-event', data => {
+    subscribeToEvent('draw-event', (err, data) => {
+      if (err) return;
       console.log('draw-event', data);
       this.ppts = data.ppts;
       this.onPaint();
       this.ppts = [];
-    });
+    })
     this.interaction.on('mousedown', this.mouseDownEvent);
     this.interaction.on('mouseup', this.mouseUpEvent);
     this.interaction.on('touchstart', this.mouseDownEvent);
@@ -72,9 +74,9 @@ export default class PixiBoard {
     const g = this.onPaint();
     this.previousG = g;
 
-    this.socket.emit('draw-event', {
+    sendEvent('draw-event', {
       ppts: JSON.parse(JSON.stringify(this.ppts))
-    });
+    })
   };
   onPaint = () => {
     var g = new PIXI.Graphics();

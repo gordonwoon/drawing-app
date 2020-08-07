@@ -1,7 +1,6 @@
 import React, { Component, createRef } from 'react';
 import { Card } from 'react-bootstrap';
 import PixiBoard from './pixi-board';
-import { withSocketConsumer } from '../../context/socket-context';
 
 export class DrawBoard extends Component {
   constructor(props) {
@@ -19,4 +18,4 @@ export class DrawBoard extends Component {
   }
 }
 
-export default withSocketConsumer(DrawBoard);
+export default DrawBoard;
