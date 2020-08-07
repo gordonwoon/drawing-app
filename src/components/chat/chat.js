@@ -4,14 +4,14 @@ import { FormControl, Card } from 'react-bootstrap';
 import { subscribeToEvent, sendEvent } from 'utilities/socket';
 
 export const CardChat = () => {
-  const [value, setValue] = useState('');
+  const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
   const handleSubmit = e => {
     e.preventDefault();
-    sendEvent('chat', value);
-    setMessages(oldMsg => [...oldMsg, value]);
-    setValue('');
+    sendEvent('chat', message);
+    setMessages(oldMsg => [...oldMsg, { sender: 'Me', message }]);
+    setMessage('');
   };
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const CardChat = () => {
     <Card className="card-chat" border="secondary">
       <Chat messages={messages} />
       <form onSubmit={handleSubmit}>
-        <FormControl value={value} onChange={e => setValue(e.target.value)} />
+        <FormControl value={message} onChange={e => setMessage(e.target.value)} />
       </form>
     </Card>
   );
@@ -37,12 +37,13 @@ export default CardChat;
 
 export const Chat = ({ messages }) => {
   return (
-    <div className="chat-display">
+    <div className="chat-display scroller">
       {messages.map((msg, i) => (
-        <span key={i} className="chat-message">
-          {msg}
-        </span>
+        <div key={i} className="chat-message">
+          {`${msg.sender}: ${msg.message}`}
+        </div>
       ))}
+      <div className="anchor" />
     </div>
   );
 };

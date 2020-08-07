@@ -1,0 +1,29 @@
+.card-chat {
+  background-color: white;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.chat-display {
+  padding: 5px;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+}
+
+.scroller * {
+  overflow-anchor: none;
+}
+
+.anchor {
+  /* allow the final child to be selected as an anchor node */
+  overflow-anchor: auto;
+
+  /* anchor nodes are required to have non-zero area */
+  height: 1px;
+}
+
+.chat-message {
+  display: block;
+  width: 100%;
+}
